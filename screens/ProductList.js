@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { SafeAreaView, FlatList } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
+// import SafeView from '../components/SafeView';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -33,7 +34,7 @@ const ProductList = () => {
     }, []);
 
     return (
-        <View>
+        <SafeAreaView>
             <FlatList
                 data={products}
                 keyExtractor={item => item.id}
@@ -50,7 +51,7 @@ const ProductList = () => {
                 refreshing={isRefreshing}
                 onRefresh={handleRefresh}
             />
-        </View>
+        </SafeAreaView>
     );
 }
 

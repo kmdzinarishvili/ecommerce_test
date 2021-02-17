@@ -1,24 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Platform, StatusBar, View, Text } from 'react-native';
 import Home from './screens/Home';
 import Product from './screens/Product';
 import ProductList from './screens/ProductList';
 import Search from './screens/Search';
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
+
+
+const RootStack = createStackNavigator();
 
 export default function App() {
   return (
-    // <NavigationContainer>
-    <View style={styles.container}>
-      {/* < Home />
-      <Product />
-      <Search /> */}
-      {/* add navigation right after this  */}
-      <ProductList />
+    <NavigationContainer >
+      <RootStack.Navigator>
+        <RootStack.Screen
+          name="Search"
+          component={Search}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <RootStack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <RootStack.Screen
+          name="Product List"
+          component={ProductList}
+          options={{
+            headerShown: false,
+          }}
+        />
 
-    </View>
-    // </NavigationContainer>
+
+        <RootStack.Screen
+          name="Product"
+          component={Product}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </RootStack.Navigator>
+
+    </NavigationContainer>
   );
 }
 
