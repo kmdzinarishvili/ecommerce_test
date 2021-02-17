@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { SafeAreaView, FlatList, TextInput } from 'react-native';
+import { SafeAreaView, FlatList, TextInput, Text } from 'react-native';
+import ProductPreview from '../components/ProductPreview';
 // import SafeView from '../components/SafeView';
 
 
@@ -7,9 +8,10 @@ import { SafeAreaView, FlatList, TextInput } from 'react-native';
 
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchResults, setSearchResults] = useState();
+    const [searchResults, setSearchResults] = useState({});
 
     const search = useCallback(async () => {
+        console.log(`https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`);
         const result = await fetch(
             `https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`
         ).catch((error) => {
@@ -17,8 +19,7 @@ const Search = () => {
             throw error;
         }
         );
-        console.log(`https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`);
-        console.log(results);
+
         if (result.ok) {
             const resJSON = await result.json();
             setSearchResults(resJSON);
@@ -35,6 +36,7 @@ const Search = () => {
                 onChangeText={(text) => setSearchTerm(text)}
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
             />
+            <Text>{searchTerm}</Text>
             <FlatList
                 data={searchResults}
                 keyExtractor={item => item.id}

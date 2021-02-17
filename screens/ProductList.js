@@ -1,9 +1,10 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { SafeAreaView, FlatList } from 'react-native';
+import { SafeAreaView, FlatList, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import ProductPreview from '../components/ProductPreview';
 // import SafeView from '../components/SafeView';
 
-const ProductList = () => {
+const ProductList = ({ navigation }) => {
     const [products, setProducts] = useState([]);
     const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -27,7 +28,7 @@ const ProductList = () => {
 
     const handleRefresh = useCallback(async () => {
         setIsRefreshing(true);
-        await fetchColorPalettes();
+        await fetchProducts();
         setTimeout(() => {
             setIsRefreshing(false);
         }, 1000);
@@ -39,15 +40,21 @@ const ProductList = () => {
                 data={products}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <ProductPreview
-                        id={item.id}
-                        keyExtractor={item.id}
-                        title={item.title}
-                        desc={item.description}
-                        img={item.image}
-                        seller={item.seller}
-                        price={item.price}
-                    />)}
+                    <TouchableOpacity
+                        style={{ backgroundColor: 'red' }}
+                        onPress={() => {
+                            navigation.navigate('Product', { id: item.id });
+                        }}>
+                        <ProductPreview
+                            id={item.id}
+                            keyExtractor={item.id}
+                            title={item.title}
+                            desc={item.description}
+                            img={item.image}
+                            seller={item.seller}
+                            price={item.price}
+                        />
+                    </TouchableOpacity>)}
                 refreshing={isRefreshing}
                 onRefresh={handleRefresh}
             />

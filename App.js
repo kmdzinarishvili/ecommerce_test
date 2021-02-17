@@ -15,6 +15,13 @@ export default function App() {
     <NavigationContainer >
       <RootStack.Navigator>
         <RootStack.Screen
+          name="Product List"
+          component={ProductList}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <RootStack.Screen
           name="Search"
           component={Search}
           options={{
@@ -28,13 +35,7 @@ export default function App() {
             headerShown: false,
           }}
         />
-        <RootStack.Screen
-          name="Product List"
-          component={ProductList}
-          options={{
-            headerShown: false,
-          }}
-        />
+
 
 
         <RootStack.Screen
