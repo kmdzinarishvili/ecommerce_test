@@ -3,6 +3,7 @@ import { SafeAreaView, FlatList, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ProductPreview from '../components/ProductPreview';
 // import SafeView from '../components/SafeView';
+import styles from '../styles/styles';
 
 const ProductList = ({ navigation }) => {
     const [products, setProducts] = useState([]);
@@ -41,7 +42,6 @@ const ProductList = ({ navigation }) => {
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
                     <TouchableOpacity
-                        style={{ backgroundColor: 'red' }}
                         onPress={() => {
                             navigation.navigate('Product', { id: item.id });
                         }}>
@@ -53,6 +53,8 @@ const ProductList = ({ navigation }) => {
                             img={item.image}
                             seller={item.seller}
                             price={item.price}
+                            color={item.id % 2 === 0 ?
+                                styles.backgroundOrange : styles.backgroundBlue}
                         />
                     </TouchableOpacity>)}
                 refreshing={isRefreshing}

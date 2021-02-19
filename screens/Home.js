@@ -3,10 +3,12 @@ import { SafeAreaView, FlatList, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ProductPreview from '../components/ProductPreview';
 // import SafeView from '../components/SafeView';
+import styles from '../styles/styles';
+
+
 
 const Home = ({ navigation }) => {
     const [products, setProducts] = useState([]);
-    const [isRefreshing, setIsRefreshing] = useState(false);
 
 
     const fetchProducts = useCallback(async () => {
@@ -19,19 +21,12 @@ const Home = ({ navigation }) => {
         );
         if (result.ok) {
             const resJSON = await result.json();
-            setProducts(resJSON);
+            console.log(resJSON.slice(0, 10));
+            setProducts(resJSON.slice(0, 10));
         }
     }, []);
     useEffect(() => {
         fetchProducts();
-    }, []);
-
-    const handleRefresh = useCallback(async () => {
-        setIsRefreshing(true);
-        await fetchColorPalettes();
-        setTimeout(() => {
-            setIsRefreshing(false);
-        }, 1000);
     }, []);
 
     return (
@@ -41,7 +36,7 @@ const Home = ({ navigation }) => {
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
                     <TouchableOpacity
-                        style={{ backgroundColor: 'red' }}
+
                         onPress={() => {
                             navigation.navigate('Product', { id: item.id });
                         }}>
@@ -53,10 +48,10 @@ const Home = ({ navigation }) => {
                             img={item.image}
                             seller={item.seller}
                             price={item.price}
+                            color={item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray}
                         />
                     </TouchableOpacity>)}
-                refreshing={isRefreshing}
-                onRefresh={handleRefresh}
+
             />
         </SafeAreaView>
     );

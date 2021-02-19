@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, SafeAreaView, Text, StyleSheet } from 'react-native';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 const Product = ({ id }) => {
     const [item, setItem] = useState({});
@@ -33,12 +34,17 @@ const Product = ({ id }) => {
             <View>
                 <Text>Loading</Text>
             </View> :
-            <SafeAreaView style={styles.box}>
-                <Text>{item.id}</Text>
+            <SafeAreaView style={[styles.box,
+            { backgroundColor: item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray }
+            ]}>
+                <AutoHeightImage width={Dimensions.get('window').width - 80}
+                    source={{
+                        uri: img
+                    }} />
+                <Text>{item.seller}</Text>
                 <Text>{item.title}</Text>
                 <Text>{item.desc}</Text>
-                <Text>{item.img}</Text>
-                <Text>{item.seller}</Text>
+
                 <Text>{item.price}</Text>
             </SafeAreaView>
     );

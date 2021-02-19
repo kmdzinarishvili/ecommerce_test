@@ -1,10 +1,11 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, Platform, StyleSheet } from 'react-native';
 
-//fix this down the line 
-const SafeView = () => {
+const SafeView = ({ children }) => {
     return (
-        <SafeAreaView style={styles.view} />
+        <SafeAreaView style={styles.view}>
+            {children}
+        </SafeAreaView>
     );
 }
 
@@ -15,3 +16,5 @@ const styles = StyleSheet.create({
 });
 
 export default SafeView;
+
+//animacia

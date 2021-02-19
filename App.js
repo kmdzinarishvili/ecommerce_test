@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Platform, StatusBar, View, Text } from 'react-native';
+import { Dimensions, Image, StyleSheet, Platform, StatusBar, View, Text } from 'react-native';
 import Home from './screens/Home';
 import Product from './screens/Product';
 import ProductList from './screens/ProductList';
 import Search from './screens/Search';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 
 const RootStack = createStackNavigator();
@@ -14,9 +15,12 @@ export default function App() {
   return (
     <NavigationContainer >
       <RootStack.Navigator>
+
+
+
         <RootStack.Screen
-          name="Product List"
-          component={ProductList}
+          name="Home"
+          component={Home}
           options={{
             headerShown: false,
           }}
@@ -29,15 +33,12 @@ export default function App() {
           }}
         />
         <RootStack.Screen
-          name="Home"
-          component={Home}
+          name="Product List"
+          component={ProductList}
           options={{
             headerShown: false,
           }}
         />
-
-
-
         <RootStack.Screen
           name="Product"
           component={Product}
@@ -45,6 +46,10 @@ export default function App() {
             headerShown: false,
           }}
         />
+
+
+
+
       </RootStack.Navigator>
 
     </NavigationContainer>

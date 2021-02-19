@@ -1,7 +1,9 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { SafeAreaView, FlatList, TextInput, Text } from 'react-native';
+import { SafeAreaView, FlatList, TextInput, Text, TouchableOpacity } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
 // import SafeView from '../components/SafeView';
+import styles from '../styles/styles';
+import NavBar from '../components/NavBar';
 
 
 //https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=intel
@@ -31,25 +33,39 @@ const Search = () => {
 
     return (
         <SafeAreaView>
+            <NavBar name={'Search'} />
             <TextInput
+
                 value={searchTerm}
                 onChangeText={(text) => setSearchTerm(text)}
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                placeholder='Search Items'
+                style={{
+                    height: 40, margin: 10, backgroundColor: '#ddd',
+                    borderRadius: 10, padding: 10
+                }}
             />
             <Text>{searchTerm}</Text>
             <FlatList
                 data={searchResults}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <ProductPreview
-                        id={item.id}
-                        keyExtractor={item.id}
-                        title={item.title}
-                        desc={item.description}
-                        img={item.image}
-                        seller={item.seller}
-                        price={item.price}
-                    />)}
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Product', { id: item.id });
+                        }}>
+                        <ProductPreview
+                            id={item.id}
+                            keyExtractor={item.id}
+                            title={item.title}
+                            desc={item.description}
+                            img={item.image}
+                            seller={item.seller}
+                            price={item.price}
+                            color={item.id % 2 === 0 ?
+                                styles.backgroundOrange : styles.backgroundBlue}
+                        />
+                    </TouchableOpacity>)
+                }
 
             />
         </SafeAreaView>
