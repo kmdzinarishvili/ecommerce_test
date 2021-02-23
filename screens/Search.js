@@ -12,7 +12,8 @@ const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState({});
 
-    const search = async () => {
+    const search = async ({ route }) => {
+        console.log(route);
         console.log(`https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`);
         const result = await fetch(
             `https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`
@@ -46,6 +47,7 @@ const Search = () => {
             <Text>{searchTerm}</Text>
             <FlatList
                 data={searchResults}
+                extraData={searchResults}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
                     <TouchableOpacity
