@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, FlatList, TextInput, Text, TouchableOpacity } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
 // import SafeView from '../components/SafeView';
@@ -12,7 +12,7 @@ const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState({});
 
-    const search = useCallback(async () => {
+    const search = async () => {
         console.log(`https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`);
         const result = await fetch(
             `https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`
@@ -26,7 +26,7 @@ const Search = () => {
             const resJSON = await result.json();
             setSearchResults(resJSON);
         }
-    }, []);
+    };
     useEffect(() => {
         search();
     }, [searchTerm]);
@@ -35,7 +35,6 @@ const Search = () => {
         <SafeAreaView>
             <NavBar name={'Search'} />
             <TextInput
-
                 value={searchTerm}
                 onChangeText={(text) => setSearchTerm(text)}
                 placeholder='Search Items'

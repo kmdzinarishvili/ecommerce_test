@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { SafeAreaView, FlatList, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, SafeAreaView, FlatList, Text } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
 // import SafeView from '../components/SafeView';
 import styles from '../styles/styles';
@@ -10,7 +9,7 @@ const ProductList = ({ navigation }) => {
     const [isRefreshing, setIsRefreshing] = useState(false);
 
 
-    const fetchProducts = useCallback(async () => {
+    const fetchProducts = async () => {
         const result = await fetch(
             'https://us-central1-js04-b4877.cloudfunctions.net/api/products'
         ).catch((error) => {
@@ -22,7 +21,7 @@ const ProductList = ({ navigation }) => {
             const resJSON = await result.json();
             setProducts(resJSON);
         }
-    }, []);
+    };
     useEffect(() => {
         fetchProducts();
     }, []);
