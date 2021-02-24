@@ -1,56 +1,65 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { Pressable, SafeAreaView, FlatList, Text } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
+import SafeView from '../components/SafeView';
+import styles from '../styles/styles';
 
-const ProductList = () => {
+const ProductList = ({ navigation }) => {
     const [products, setProducts] = useState([]);
     const [isRefreshing, setIsRefreshing] = useState(false);
 
 
-    const fetchProducts = useCallback(async () => {
-        const result = await fetch(
+    const fetchProducts = async () => {
+        await fetch(
             'https://us-central1-js04-b4877.cloudfunctions.net/api/products'
-        ).catch((error) => {
-            console.log(error);
-            throw error;
-        }
-        );
-        if (result.ok) {
-            const resJSON = await result.json();
-            setProducts(resJSON);
-        }
-    }, []);
+        ).then(res => res.json())
+            .then(json => {
+                setProducts(json);
+            }).catch((error) => {
+                console.log(error);
+                throw error;
+            }
+            );
+
+    };
     useEffect(() => {
         fetchProducts();
     }, []);
 
     const handleRefresh = useCallback(async () => {
         setIsRefreshing(true);
-        await fetchColorPalettes();
+        await fetchProducts();
         setTimeout(() => {
             setIsRefreshing(false);
         }, 1000);
     }, []);
 
     return (
-        <View>
+        <SafeView>
             <FlatList
                 data={products}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <ProductPreview
-                        id={item.id}
-                        keyExtractor={item.id}
-                        title={item.title}
-                        desc={item.description}
-                        img={item.image}
-                        seller={item.seller}
-                        price={item.price}
-                    />)}
+                    <Pressable
+                        onPress={() => {
+                            navigation.navigate('Product', { id: item.id });
+                        }}>
+                        <ProductPreview
+                            id={item.id}
+                            keyExtractor={item.id}
+                            title={item.title}
+                            desc={item.description}
+                            img={item.image}
+                            seller={item.seller}
+                            price={item.price}
+                            color={item.id % 2 === 0 ?
+                                styles.backgroundOrange : styles.backgroundBlue}
+                        />
+                    </Pressable>)}
                 refreshing={isRefreshing}
                 onRefresh={handleRefresh}
             />
-        </View>
+        </SafeView>
     );
 }
 
