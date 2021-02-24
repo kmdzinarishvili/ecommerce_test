@@ -4,6 +4,7 @@ import styles from '../styles/styles';
 import AutoHeightImage from 'react-native-auto-height-image';
 
 
+
 const ProductPreview = ({ title, img, seller, price, color }) => {
     return (
         <View style={[color, styles.box, { padding: 20 }]}>
@@ -15,8 +16,8 @@ const ProductPreview = ({ title, img, seller, price, color }) => {
                 }
             />
             <Text style={productStyles.text}>{seller}</Text>
-            <Text style={[productStyles.text, { fontSize: 20 }]}>{title}</Text>
-            <Text style={[productStyles.text, { fontSize: 25, color: 'teal' }]}>${price.toFixed(2)}</Text>
+            <Text style={[productStyles.text, productStyles.title]}>{title}</Text>
+            <Text style={[productStyles.text, productStyles.price]}>${price.toFixed(2)}</Text>
         </View >
     );
 }
@@ -24,6 +25,12 @@ const ProductPreview = ({ title, img, seller, price, color }) => {
 const productStyles = StyleSheet.create({
     text: {
         paddingTop: 10,
+    },
+    title: {
+        fontSize: 20
+    },
+    price: {
+        fontSize: 25, color: 'teal'
     }
 
 });

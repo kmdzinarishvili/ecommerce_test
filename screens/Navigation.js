@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, FlatList, Pressable, Dimensions } from 'react-native';
+import { View, ImageBackground, StyleSheet, FlatList, Pressable, Dimensions } from 'react-native';
 
 
 const Item = ({ item }) => (

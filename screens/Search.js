@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, FlatList, TextInput, Text, TouchableOpacity } from 'react-native';
+import { Pressable, SafeAreaView, FlatList, TextInput, Text, TouchableOpacity } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
-// import SafeView from '../components/SafeView';
+import SafeView from '../components/SafeView';
 import styles from '../styles/styles';
 import NavBar from '../components/NavBar';
 
 
 //https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=intel
 
-const Search = () => {
+const Search = ({ navigation }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState({});
 
-    const search = async ({ route }) => {
-        console.log(route);
+    const search = async () => {
         console.log(`https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`);
-        const result = await fetch(
+        await fetch(
             `https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`
-        ).catch((error) => {
-            console.log(error);
-            throw error;
-        }
-        );
-
-        if (result.ok) {
-            const resJSON = await result.json();
-            setSearchResults(resJSON);
-        }
+        ).then(res => res.json())
+            .then(json => {
+                setSearchResults(json);
+            }).catch((error) => {
+                console.log(error);
+                throw error;
+            }
+            );
     };
     useEffect(() => {
         search();
     }, [searchTerm]);
 
     return (
-        <SafeAreaView>
+        <SafeView>
             <NavBar name={'Search'} />
             <TextInput
                 value={searchTerm}
@@ -50,7 +47,7 @@ const Search = () => {
                 extraData={searchResults}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <TouchableOpacity
+                    <Pressable
                         onPress={() => {
                             navigation.navigate('Product', { id: item.id });
                         }}>
@@ -65,11 +62,11 @@ const Search = () => {
                             color={item.id % 2 === 0 ?
                                 styles.backgroundOrange : styles.backgroundBlue}
                         />
-                    </TouchableOpacity>)
+                    </Pressable>)
                 }
 
             />
-        </SafeAreaView>
+        </SafeView>
     );
 }
 

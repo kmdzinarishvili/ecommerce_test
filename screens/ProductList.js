@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { TouchableOpacity, SafeAreaView, FlatList, Text } from 'react-native';
+import { Pressable, SafeAreaView, FlatList, Text } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
-// import SafeView from '../components/SafeView';
+import SafeView from '../components/SafeView';
 import styles from '../styles/styles';
 
 const ProductList = ({ navigation }) => {
@@ -10,17 +10,17 @@ const ProductList = ({ navigation }) => {
 
 
     const fetchProducts = async () => {
-        const result = await fetch(
+        await fetch(
             'https://us-central1-js04-b4877.cloudfunctions.net/api/products'
-        ).catch((error) => {
-            console.log(error);
-            throw error;
-        }
-        );
-        if (result.ok) {
-            const resJSON = await result.json();
-            setProducts(resJSON);
-        }
+        ).then(res => res.json())
+            .then(json => {
+                setProducts(json);
+            }).catch((error) => {
+                console.log(error);
+                throw error;
+            }
+            );
+
     };
     useEffect(() => {
         fetchProducts();
@@ -35,12 +35,12 @@ const ProductList = ({ navigation }) => {
     }, []);
 
     return (
-        <SafeAreaView>
+        <SafeView>
             <FlatList
                 data={products}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <TouchableOpacity
+                    <Pressable
                         onPress={() => {
                             navigation.navigate('Product', { id: item.id });
                         }}>
@@ -55,11 +55,11 @@ const ProductList = ({ navigation }) => {
                             color={item.id % 2 === 0 ?
                                 styles.backgroundOrange : styles.backgroundBlue}
                         />
-                    </TouchableOpacity>)}
+                    </Pressable>)}
                 refreshing={isRefreshing}
                 onRefresh={handleRefresh}
             />
-        </SafeAreaView>
+        </SafeView>
     );
 }
 
