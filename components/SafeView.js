@@ -1,9 +1,9 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, Platform, StyleSheet } from 'react-native';
 
-const SafeView = ({ children }) => {
+const SafeView = ({ children, style }) => {
     return (
-        <SafeAreaView style={styles.view}>
+        <SafeAreaView style={[styles.view, style]}>
             {children}
         </SafeAreaView>
     );
@@ -11,7 +11,8 @@ const SafeView = ({ children }) => {
 
 const styles = StyleSheet.create({
     view: {
-        marginTop: StatusBar.currentHeight
+        marginTop: StatusBar.currentHeight,
+        marignRight: 0
     }
 });
 

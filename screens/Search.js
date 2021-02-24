@@ -6,7 +6,6 @@ import styles from '../styles/styles';
 import NavBar from '../components/NavBar';
 
 
-//https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=intel
 
 const Search = ({ navigation }) => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -31,7 +30,7 @@ const Search = ({ navigation }) => {
 
     return (
         <SafeView>
-            <NavBar name={'Search'} />
+            <NavBar name={'Home'} navigation={navigation} />
             <TextInput
                 value={searchTerm}
                 onChangeText={(text) => setSearchTerm(text)}

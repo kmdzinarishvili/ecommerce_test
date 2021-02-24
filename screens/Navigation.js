@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, FlatList, Pressable, Dimensions } from 'react-native';
-
+import SafeView from '../components/SafeView';
 
 const Item = ({ item }) => (
     <Pressable
@@ -37,25 +37,27 @@ const Navigation = ({ navigation }) => {
 
 
     return (
-        <ImageBackground source={image} style={[styles.image, styles.center, { padding: 40 }]}
-            imageStyle={{ opacity: 0.4 }}>
-            <View style={[styles.black,
-            { width: Dimensions.get('window').width - 80 },
-            { height: Dimensions.get('window').height - 80 }]}>
-                <FlatList
-                    contentContainerStyle={[styles.center,
-                    {
-                        flex: 1,
-                        justifyContent: 'center',
-                    }]}
-                    data={nav}
-                    renderItem={({ item }) => (
-                        <Item item={item} />
-                    )}
-                    keyExtractor={item => item.id}
-                />
-            </View>
-        </ImageBackground>
+        <SafeView>
+            <ImageBackground source={image} style={[styles.image, styles.center, { padding: 40 }]}
+                imageStyle={{ opacity: 0.4 }}>
+                <View style={[styles.black,
+                { width: Dimensions.get('window').width - 80 },
+                { height: Dimensions.get('window').height - 80 }]}>
+                    <FlatList
+                        contentContainerStyle={[styles.center,
+                        {
+                            flex: 1,
+                            justifyContent: 'center',
+                        }]}
+                        data={nav}
+                        renderItem={({ item }) => (
+                            <Item item={item} />
+                        )}
+                        keyExtractor={item => item.id}
+                    />
+                </View>
+            </ImageBackground>
+        </SafeView>
 
     );
 }

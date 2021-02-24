@@ -1,8 +1,10 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { TouchableOpacity, SafeAreaView, FlatList, Text } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
-// import SafeView from '../components/SafeView';
+import SafeView from '../components/SafeView';
+import NavBar from '../components/NavBar';
 import styles from '../styles/styles';
+import Cart from '../components/Cart';
 
 
 
@@ -20,7 +22,6 @@ const Home = ({ navigation }) => {
         );
         if (result.ok) {
             const resJSON = await result.json();
-            console.log(resJSON.slice(0, 10));
             setProducts(resJSON.slice(0, 10));
         }
     };
@@ -29,13 +30,16 @@ const Home = ({ navigation }) => {
     }, []);
 
     return (
-        <SafeAreaView>
+        <SafeView>
+            <NavBar name={'Home'} navigation={navigation} />
             <FlatList
+                contentContainerStyle={{
+                    margin: 0
+                }}
                 data={products}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
                     <TouchableOpacity
-
                         onPress={() => {
                             navigation.navigate('Product', { id: item.id });
                         }}>
@@ -50,9 +54,8 @@ const Home = ({ navigation }) => {
                             color={item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray}
                         />
                     </TouchableOpacity>)}
-
             />
-        </SafeAreaView>
+        </SafeView>
     );
 }
 

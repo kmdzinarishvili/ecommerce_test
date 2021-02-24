@@ -3,6 +3,8 @@ import { Pressable, SafeAreaView, FlatList, Text } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
 import SafeView from '../components/SafeView';
 import styles from '../styles/styles';
+import NavBar from '../components/NavBar';
+
 
 const ProductList = ({ navigation }) => {
     const [products, setProducts] = useState([]);
@@ -36,6 +38,8 @@ const ProductList = ({ navigation }) => {
 
     return (
         <SafeView>
+            <NavBar name={'Home'} navigation={navigation} />
+
             <FlatList
                 data={products}
                 keyExtractor={item => item.id}

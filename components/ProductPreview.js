@@ -9,7 +9,7 @@ const ProductPreview = ({ title, img, seller, price, color }) => {
     return (
         <View style={[color, styles.box, { padding: 20 }]}>
             <AutoHeightImage
-                width={Dimensions.get('window').width - 80}
+                width={Dimensions.get('window').width - 95}
                 source={{
                     uri: img
                 }
@@ -32,7 +32,6 @@ const productStyles = StyleSheet.create({
     price: {
         fontSize: 25, color: 'teal'
     }
-
 });
 
 export default ProductPreview;
