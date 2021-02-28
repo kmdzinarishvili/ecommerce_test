@@ -41,7 +41,6 @@ const NavBar = ({ name, navigation }) => {
     return (
         <View style={{
             flexDirection: 'row',
-
             height: 10,
             justifyContent: 'space-between',
             alignItems: 'center',

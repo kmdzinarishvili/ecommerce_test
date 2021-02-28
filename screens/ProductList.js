@@ -37,8 +37,10 @@ const ProductList = ({ navigation }) => {
     }, []);
 
     return (
+
         <SafeView>
             <NavBar name={'Home'} navigation={navigation} />
+            <Cart />
 
             <FlatList
                 data={products}
@@ -63,6 +65,7 @@ const ProductList = ({ navigation }) => {
                 refreshing={isRefreshing}
                 onRefresh={handleRefresh}
             />
+
         </SafeView>
     );
 }

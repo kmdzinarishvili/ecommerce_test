@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, View, Text, StyleSheet, Dimensions } from 'react-native';
+import { FlatList, ScrollView, View, Text, StyleSheet, Dimensions } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
 import SafeView from '../components/SafeView';
 import styles from '../styles/styles';
 import NavBar from '../components/NavBar';
+import Cart from '../components/Cart';
 
 
 const Product = ({ route, navigation }) => {
     const id = route.params.id;
     const [item, setItem] = useState({});
     const [reviews, setReviews] = useState([]);
-    const [isRefreshing, setIsRefreshing] = useState(true);
+    const [isRefreshing, setIsResfreshing] = useState(true);
 
     const fetchReviews = async () => {
 
@@ -61,8 +62,9 @@ const Product = ({ route, navigation }) => {
             <SafeView style={[item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray,
             ]}
             >
+                <Cart />
                 <NavBar name={'Home'} navigation={navigation} />
-                <View style={{ alignItems: 'center' }}>
+                <ScrollView style={{ alignItems: 'center' }}>
                     <AutoHeightImage width={Dimensions.get('window').width - 80}
                         source={{
                             uri: item.image
@@ -82,8 +84,9 @@ const Product = ({ route, navigation }) => {
                                 <Text>{item.body}</Text>
                             </View>)}
                     />
-                </View>
-            </SafeView>);
+                </ScrollView>
+            </SafeView>
+    );
 }
 
 const productStyles = StyleSheet.create({
@@ -98,7 +101,7 @@ const productStyles = StyleSheet.create({
         fontSize: 30
     },
     desc: {
-        fontsize: 20
+        fontSize: 20
     },
     price: {
         fontSize: 25, color: 'teal'

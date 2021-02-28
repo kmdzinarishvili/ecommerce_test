@@ -5,9 +5,9 @@ import Product from './screens/Product';
 import ProductList from './screens/ProductList';
 import Search from './screens/Search';
 import Navigation from './screens/Navigation';
+import NavBar from './components/NavBar';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
-import AutoHeightImage from 'react-native-auto-height-image';
 
 
 const RootStack = createStackNavigator();
@@ -16,6 +16,13 @@ export default function App() {
   return (
     <NavigationContainer >
       <RootStack.Navigator>
+        {/* <RootStack.Screen
+          name="NavBar"
+          component={NavBar}
+          options={{
+            headerShown: false,
+          }}
+        /> */}
 
         <RootStack.Screen
           name="Navigation"

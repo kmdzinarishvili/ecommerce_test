@@ -1,5 +1,5 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { TouchableOpacity, SafeAreaView, FlatList, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, Pressable, FlatList } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
 import SafeView from '../components/SafeView';
 import NavBar from '../components/NavBar';
@@ -31,6 +31,7 @@ const Home = ({ navigation }) => {
 
     return (
         <SafeView>
+            <Cart />
             <NavBar name={'Home'} navigation={navigation} />
             <FlatList
                 contentContainerStyle={{
@@ -39,7 +40,7 @@ const Home = ({ navigation }) => {
                 data={products}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <TouchableOpacity
+                    <Pressable
                         onPress={() => {
                             navigation.navigate('Product', { id: item.id });
                         }}>
@@ -53,7 +54,7 @@ const Home = ({ navigation }) => {
                             price={item.price}
                             color={item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray}
                         />
-                    </TouchableOpacity>)}
+                    </Pressable>)}
             />
         </SafeView>
     );

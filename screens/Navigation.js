@@ -1,15 +1,19 @@
 import React from 'react';
-import { View, ImageBackground, StyleSheet, FlatList, Pressable, Dimensions } from 'react-native';
+import { Text, View, ImageBackground, StyleSheet, FlatList, Pressable, Dimensions } from 'react-native';
 import SafeView from '../components/SafeView';
 
-const Item = ({ item }) => (
-    <Pressable
-        style={styles.text}
-        onPress={item.onPress}>
-        {item.name}
-    </Pressable>
 
-);
+const Item = ({ item }) => {
+    console.log('item', item);
+    console.log('item.onPress', item.onPress);
+
+    return (
+        <Pressable
+            onPress={item.onPress}>
+            <Text style={styles.text}>{item.name}</Text>
+        </Pressable>);
+
+};
 
 const Navigation = ({ navigation }) => {
     const image = { uri: 'https://i.pinimg.com/originals/8b/f5/26/8bf5265199a67a4c5d9e2049ebda9812.jpg' }
@@ -36,6 +40,7 @@ const Navigation = ({ navigation }) => {
     ];
 
 
+
     return (
         <SafeView>
             <ImageBackground source={image} style={[styles.image, styles.center, { padding: 40 }]}
@@ -53,7 +58,7 @@ const Navigation = ({ navigation }) => {
                         renderItem={({ item }) => (
                             <Item item={item} />
                         )}
-                        keyExtractor={item => item.id}
+                        keyExtractor={item => item.name}
                     />
                 </View>
             </ImageBackground>
@@ -88,11 +93,10 @@ const styles = StyleSheet.create({
     },
     text: {
         padding: 15,
-        color: "white",
+        color: 'white',
         fontSize: 32,
         fontWeight: "bold",
         textAlign: "center",
-        backgroundColor: "#0000000"
     }
 });
 

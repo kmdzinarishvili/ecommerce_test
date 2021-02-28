@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import styles from '../styles/styles';
 import AutoHeightImage from 'react-native-auto-height-image';
 
@@ -17,7 +17,17 @@ const ProductPreview = ({ title, img, seller, price, color }) => {
             />
             <Text style={productStyles.text}>{seller}</Text>
             <Text style={[productStyles.text, productStyles.title]}>{title}</Text>
-            <Text style={[productStyles.text, productStyles.price]}>${price.toFixed(2)}</Text>
+            <View style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+            }}>
+                <Text style={[productStyles.text, productStyles.price]}>${price.toFixed(2)}</Text>
+                <Pressable>
+                    <Text style={productStyles.text}>Add To Cart</Text>
+                </Pressable>
+            </View>
         </View >
     );
 }

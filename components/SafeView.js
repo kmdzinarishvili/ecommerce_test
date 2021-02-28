@@ -11,8 +11,8 @@ const SafeView = ({ children, style }) => {
 
 const styles = StyleSheet.create({
     view: {
-        marginTop: StatusBar.currentHeight,
-        marignRight: 0
+        flex: 1,
+        marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     }
 });
 
