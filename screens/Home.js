@@ -38,7 +38,7 @@ const Home = ({ navigation }) => {
                     margin: 0
                 }}
                 data={products}
-                keyExtractor={item => item.id}
+                keyExtractor={item => `item-${item.id}`}
                 renderItem={({ item }) => (
                     <Pressable
                         onPress={() => {

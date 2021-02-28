@@ -78,7 +78,7 @@ const Product = ({ route, navigation }) => {
                     <Text>Reviews:</Text>
                     <FlatList
                         data={reviews}
-                        keyExtractor={rev => rev.id}
+                        keyExtractor={rev => `item=${rev.id}`}
                         renderItem={({ item }) => (
                             <View style={productStyles.rev}>
                                 <Text>{item.body}</Text>

@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 
 const Menu = ({ navigate }) => {
-    console.log(navigate);
     return (<Pressable
         style={{
             width: 50,

@@ -4,19 +4,21 @@ import ProductPreview from '../components/ProductPreview';
 import SafeView from '../components/SafeView';
 import styles from '../styles/styles';
 import NavBar from '../components/NavBar';
+import Cart from '../components/Cart';
 
 
 const ProductList = ({ navigation }) => {
     const [products, setProducts] = useState([]);
-    const [isRefreshing, setIsRefreshing] = useState(false);
+    const [page, setPage] = useState(1);
+    const limit = 8;
 
 
     const fetchProducts = async () => {
         await fetch(
-            'https://us-central1-js04-b4877.cloudfunctions.net/api/products'
+            `https://us-central1-js04-b4877.cloudfunctions.net/api/products?_page=${page}&_limit=${limit}`
         ).then(res => res.json())
             .then(json => {
-                setProducts(json);
+                setProducts(prods => [...prods, ...json]);
             }).catch((error) => {
                 console.log(error);
                 throw error;
@@ -26,25 +28,19 @@ const ProductList = ({ navigation }) => {
     };
     useEffect(() => {
         fetchProducts();
-    }, []);
+    }, [page]);
 
-    const handleRefresh = useCallback(async () => {
-        setIsRefreshing(true);
-        await fetchProducts();
-        setTimeout(() => {
-            setIsRefreshing(false);
-        }, 1000);
-    }, []);
+
 
     return (
 
         <SafeView>
-            <NavBar name={'Home'} navigation={navigation} />
+            <NavBar name={'Product List'} navigation={navigation} />
             <Cart />
 
             <FlatList
                 data={products}
-                keyExtractor={item => item.id}
+                keyExtractor={item => `list-item${item.id}`}
                 renderItem={({ item }) => (
                     <Pressable
                         onPress={() => {
@@ -52,7 +48,6 @@ const ProductList = ({ navigation }) => {
                         }}>
                         <ProductPreview
                             id={item.id}
-                            keyExtractor={item.id}
                             title={item.title}
                             desc={item.description}
                             img={item.image}
@@ -61,9 +56,12 @@ const ProductList = ({ navigation }) => {
                             color={item.id % 2 === 0 ?
                                 styles.backgroundOrange : styles.backgroundBlue}
                         />
-                    </Pressable>)}
-                refreshing={isRefreshing}
-                onRefresh={handleRefresh}
+                    </Pressable>
+                )}
+
+                onEndReached={() => {
+                    setPage(page + 1);
+                }}
             />
 
         </SafeView>

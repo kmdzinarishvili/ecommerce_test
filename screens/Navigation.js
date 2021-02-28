@@ -4,8 +4,7 @@ import SafeView from '../components/SafeView';
 
 
 const Item = ({ item }) => {
-    console.log('item', item);
-    console.log('item.onPress', item.onPress);
+
 
     return (
         <Pressable
