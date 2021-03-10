@@ -5,7 +5,7 @@ import AutoHeightImage from 'react-native-auto-height-image';
 
 
 
-const ProductPreview = ({ title, img, seller, price, color }) => {
+const ProductPreview = ({ title, img, seller, price, color, onPress }) => {
     return (
         <View style={[color, styles.box, { padding: 20 }]}>
             <AutoHeightImage
@@ -23,8 +23,10 @@ const ProductPreview = ({ title, img, seller, price, color }) => {
                 justifyContent: 'space-between',
                 alignItems: 'center'
             }}>
-                <Text style={[productStyles.text, productStyles.price]}>${price.toFixed(2)}</Text>
-                <Pressable>
+                <Text style={[productStyles.text, productStyles.price,]}>${price.toFixed(2)}</Text>
+                <Pressable
+                    style={{ backgroundColor: 'red' }}
+                    onPress={onPress}>
                     <Text style={productStyles.text}>Add To Cart</Text>
                 </Pressable>
             </View>
