@@ -62,17 +62,55 @@
 
 // export default Home;
 
+
 import React from 'react';
 import { Button } from 'react-native';
-import { useSharedValue } from 'react-native-reanimated';
+import Animated, { withSpring, useSharedValue, useAnimatedStyle } from 'react-native-reanimated';
 
-function App() {
-    const width = useSharedValue(50);
+
+function AnimatedPicture() {
+    const offset = useSharedValue(0);
+    const y = useSharedValue(0);
+    const s = useSharedValue(1);
+
+    const animatedStyles = useAnimatedStyle(() => {
+        return {
+            transform: [
+                {
+                    translateX: offset.value * 255,
+                },
+                {
+                    translateY: y.value * 255,
+                },
+                {
+                    scale: s.value,
+                }
+            ],
+        };
+    });
+    const yStyles = useAnimatedStyle(() => {
+        return {
+            transform: [{ translateY: offset.value * 255 }],
+        };
+    });
+
     return (
-        <View>
-            <SomeComponent width={width} />
-            <Button onPress={() => (width.value = Math.random() * 300)} />
-        </View>
+        <>
+            <Animated.View style={[{ width: 100, height: 100, backgroundColor: 'blue' }, animatedStyles]} />
+            <Button
+                onPress={() => {
+                    offset.value = withSpring(Math.random());
+                    y.value = withSpring(Math.random());
+                    s.value = withSpring(Math.random());
+                }}
+                title="Move"
+            />
+        </>
+    );
+}
+function App() {
+    return (
+        <AnimatedPicture />
     );
 }
 export default App;
