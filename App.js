@@ -16,14 +16,6 @@ export default function App() {
   return (
     <NavigationContainer >
       <RootStack.Navigator>
-        {/* <RootStack.Screen
-          name="NavBar"
-          component={NavBar}
-          options={{
-            headerShown: false,
-          }}
-        /> */}
-
         <RootStack.Screen
           name="Navigation"
           component={Navigation}
@@ -62,9 +54,6 @@ export default function App() {
             headerShown: false,
           }}
         />
-
-
-
 
 
       </RootStack.Navigator>
