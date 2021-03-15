@@ -41,8 +41,7 @@ const Home = ({ navigation }) => {
 
     return (
         <SafeView>
-                        <Cart />
-
+            <Cart />
             {pressed&&<AnimatedPicture img={img} />}
             <NavBar name={'Home'} navigation={navigation} />
             <FlatList

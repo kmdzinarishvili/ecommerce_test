@@ -8,8 +8,6 @@ const wWidth = Dimensions.get('window').width;
 const wHeight = Dimensions.get('window').height;
 
 
-
-
 function AnimatedPicture({img}) {
     const offset = useSharedValue(0);
     const y = useSharedValue(0);
