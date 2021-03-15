@@ -11,7 +11,7 @@ import AnimatedPicture from '../components/AnimatedPicture';
 const Home = ({ navigation }) => {
     const [products, setProducts] = useState([]);
     const [pressed, setPressed] = useState(false);
-
+    const [img, setImg] = useState('');
 
     const fetchProducts = async () => {
         const result = await fetch(
@@ -30,13 +30,13 @@ const Home = ({ navigation }) => {
         fetchProducts();
     }, []);
 
-    const press = () => {
+    const press = (img) => {
         setPressed(true);
     };
 
     return (
         <SafeView>
-            {pressed && <AnimatedPicture />}
+            {pressed && <AnimatedPicture img={img} />}
             <Cart />
             <NavBar name={'Home'} navigation={navigation} />
             <FlatList
@@ -60,6 +60,7 @@ const Home = ({ navigation }) => {
                             price={item.price}
                             color={item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray}
                             onPress={press}
+                            setImg={setImg}
                         />
                     </Pressable>)}
             />
