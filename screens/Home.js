@@ -20,7 +20,6 @@ const Home = ({ navigation }) => {
         const result = await fetch(
             'https://us-central1-js04-b4877.cloudfunctions.net/api/products?_sort=id&_order=desc'
         ).catch((error) => {
-            console.log(error);
             throw error;
         }
         );
@@ -46,6 +45,7 @@ const Home = ({ navigation }) => {
             {pressed&&<AnimatedPicture img={img} />}
             <NavBar name={'Home'} navigation={navigation} />
             <FlatList
+                showsVerticalScrollIndicator={false} 
                 contentContainerStyle={{
                     margin: 0
                 }}

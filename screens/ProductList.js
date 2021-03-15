@@ -20,7 +20,6 @@ const ProductList = ({ navigation }) => {
             .then(json => {
                 setProducts(prods => [...prods, ...json]);
             }).catch((error) => {
-                console.log(error);
                 throw error;
             }
             );

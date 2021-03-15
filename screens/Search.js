@@ -13,14 +13,12 @@ const Search = ({ navigation }) => {
     const [searchResults, setSearchResults] = useState({});
 
     const search = async () => {
-        console.log(`https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`);
         await fetch(
             `https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`
         ).then(res => res.json())
             .then(json => {
                 setSearchResults(json);
             }).catch((error) => {
-                console.log(error);
                 throw error;
             }
             );
