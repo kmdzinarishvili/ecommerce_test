@@ -11,20 +11,18 @@ const Product = ({ route, navigation }) => {
     const id = route.params.id;
     const [item, setItem] = useState({});
     const [reviews, setReviews] = useState([]);
-    const [isRefreshing, setIsResfreshing] = useState(true);
+    const [isRefreshing, setIsRefreshing] = useState(true);
 
     const fetchReviews = async () => {
 
-        await fetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/1/reviews`)
+        await fetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/${id}/reviews`)
             .then(res => {
-                console.log(res);
                 return (res.json());
             })
             .then(json => {
                 setReviews(json);
             }
             ).catch((error) => {
-                console.log(error);
                 throw error;
             }
             );
@@ -40,10 +38,9 @@ const Product = ({ route, navigation }) => {
         }
         ).then(json => {
             setItem(json);
-            setIsResfreshing(false);
+            setIsRefreshing(false);
         }
         ).catch((error) => {
-            console.log(error);
             throw error;
         }
         );
@@ -55,6 +52,7 @@ const Product = ({ route, navigation }) => {
     }, []);
 
     return (
+    
         isRefreshing ?
             <View>
                 <Text>Loading</Text>
@@ -64,7 +62,7 @@ const Product = ({ route, navigation }) => {
             >
                 <Cart />
                 <NavBar name={'Home'} navigation={navigation} />
-                <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
+                    <View style={{alignItems:'center'}}>
                     <AutoHeightImage width={Dimensions.get('window').width - 80}
                         source={{
                             uri: item.image
@@ -84,7 +82,7 @@ const Product = ({ route, navigation }) => {
                                 <Text>{item.body}</Text>
                             </View>)}
                     />
-                </ScrollView>
+                    </View>
             </SafeView>
     );
 }
