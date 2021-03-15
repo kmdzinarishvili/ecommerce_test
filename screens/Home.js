@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { Text, Pressable, FlatList } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
 import SafeView from '../components/SafeView';
@@ -12,6 +12,7 @@ const Home = ({ navigation }) => {
     const [products, setProducts] = useState([]);
     const [pressed, setPressed] = useState(false);
     const [img, setImg] = useState('');
+    const animationRef = useRef(null);
 
     const fetchProducts = async () => {
         const result = await fetch(
@@ -31,12 +32,14 @@ const Home = ({ navigation }) => {
     }, []);
 
     const press = (img) => {
+        console.log('here')
         setPressed(true);
+        animationRef.current.animate()
     };
 
     return (
         <SafeView>
-            {pressed && <AnimatedPicture img={img} />}
+            <AnimatedPicture img={img}  ref={animationRef}/>
             <Cart />
             <NavBar name={'Home'} navigation={navigation} />
             <FlatList

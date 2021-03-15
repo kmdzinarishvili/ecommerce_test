@@ -40,7 +40,7 @@ const Product = ({ route, navigation }) => {
         }
         ).then(json => {
             setItem(json);
-            setIsRefreshing(false);
+                setIsResfreshing(false);
         }
         ).catch((error) => {
             console.log(error);
@@ -64,7 +64,7 @@ const Product = ({ route, navigation }) => {
             >
                 <Cart />
                 <NavBar name={'Home'} navigation={navigation} />
-                <ScrollView style={{ alignItems: 'center' }}>
+                <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
                     <AutoHeightImage width={Dimensions.get('window').width - 80}
                         source={{
                             uri: item.image

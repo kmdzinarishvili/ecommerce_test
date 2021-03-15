@@ -1,23 +1,28 @@
 
-import React, { useState } from 'react';
-import { Dimensions } from 'react-native';
+import React, { useState, useEffect ,useImperativeHandle, } from 'react';
+import { Dimensions ,Image} from 'react-native';
 
-import Animated, { withSpring, useSharedValue, useAnimatedStyle, Easing } from 'react-native-reanimated';
+import Animated, {withSpring, useSharedValue, useAnimatedStyle, Easing, withTiming} from 'react-native-reanimated';
 import AutoHeightImage from 'react-native-auto-height-image';
-import { useEffect } from 'react/cjs/react.development';
 
+const wWidth = Dimensions.get('window').width;
+const wHeight = Dimensions.get('window').height;
 
-
-const AnimatedPicture = ({img}) => {
+let AnimatedPicture = ({img, animate}, ref) => {
     const offset = useSharedValue(0);
     const y = useSharedValue(0);
     const s = useSharedValue(1);
-    const [borderRadius,] = useState(new Animated.Value(0));
+    const zIndex = useSharedValue(0);
+    const opacity = useSharedValue(0);
+    const  borderRadius= useSharedValue(0);
     const [show, setShow] = useState(true);
 
 
     const animatedStyles = useAnimatedStyle((pressed) => {
         return {
+            borderRadius: withSpring(borderRadius.value, ),
+            zIndex: withSpring(zIndex.value, ),
+            opacity: withSpring(opacity.value, ),
             transform: [
                 {
                     translateX: offset.value,
@@ -28,28 +33,41 @@ const AnimatedPicture = ({img}) => {
                 {
                     scale: s.value,
                 },
-
-
             ],
         };
     });
 
 
+
+
     const move = () => {
-        offset.value = withSpring(Dimensions.get('window').width -170);
-        y.value = withSpring(Dimensions.get('window').height -170);
-        s.value = withSpring(0.3);
-        Animated.timing(
-            borderRadius,
-            {
-                toValue: 100 / 2,
-                duration: 1000,
-                easing: Easing.linear
-            }
-        ).start();
+        console.log('qwqwqwqw', wWidth-50)
+        offset.value = withSpring(95+((wWidth-95)*0.25));
+        y.value = withSpring(wHeight-wWidth-95+((wWidth-95)*0.25)+100);
+        s.value = withSpring(0.25);
+        borderRadius.value= 1000;
+        zIndex.value = 999;
+        opacity.value = 1
+        // Animated.timing(
+        //     borderRadius,
+        //     {
+        //         toValue: 100 / 2,
+        //         duration: 1000,
+        //         easing: Easing.linear
+        //     }
+        // ).start();
+        setTimeout(()=>{
+            offset.value=0;
+            y.value=0;
+            s.value=1;
+            borderRadius.value=0;
+            opacity.value=0;
+            zIndex.value=0;
+        },700)
+
     }
 
-    useEffect(move, []);
+    // useEffect(move, []);
     // useEffect(setTimeout(() => {
     //     setShow(false);
     // }, 1000), []);
@@ -57,25 +75,35 @@ const AnimatedPicture = ({img}) => {
     const timer = setTimeout(()=>{
         setShow(false);
     }, 1000);
+
+    useImperativeHandle(ref, () => ({
+        animate: () => {
+            move();
+        },
+    }));
+
+    console.log(wWidth)
+
     return (
         <>
-            {show &&<Animated.View
+            <Animated.View
                 style={[
-                    { width: Dimensions.get('window').width - 95, height: 100, zIndex: 999, flex: 1 },
+                    { width: wWidth-95, height:wWidth-95, zIndex: 0, overflow:'hidden', backgroundColor:'red', position:'absolute',top:0, left:0},
                     animatedStyles,
                 ]} >
-                <AutoHeightImage
-                    width={Dimensions.get('window').width - 95}
+                <Image
+                    style={{width:wWidth-95, height:wWidth-95}}
                     source={{
                         uri: img
                     }
                     } />
             </Animated.View>
-            }
+
         
         </>
     );
 }
 
+AnimatedPicture =  React.forwardRef(AnimatedPicture)
 
 export default AnimatedPicture;
