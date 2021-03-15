@@ -36,7 +36,6 @@ function AnimatedPicture({img}) {
     });
 
     const move = () => {
-        console.log('qwqwqwqw', wWidth-50)
         offset.value = withSpring(95+((wWidth-95)*0.25));
         y.value = withSpring(wHeight-wWidth-95+((wWidth-95)*0.25)+100);
         s.value = withSpring(0.25);
