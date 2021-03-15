@@ -19,7 +19,7 @@ const Cart = () => {
                 bottom: 100,
                 right: 50,
                 shadowColor: '#000',
-                zIndex: 1,
+                zIndex: 0,
                 shadowOffset: {
                     width: 6,
                     height: 6,
