@@ -1,5 +1,6 @@
-import React, { useState, useEffect,useRef } from 'react';
-import { Text, Pressable, FlatList } from 'react-native';
+
+import React, { useState, useEffect } from 'react';
+import {  Pressable, FlatList } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
 import SafeView from '../components/SafeView';
 import NavBar from '../components/NavBar';
@@ -8,11 +9,12 @@ import Cart from '../components/Cart';
 import AnimatedPicture from '../components/AnimatedPicture';
 
 
+
 const Home = ({ navigation }) => {
     const [products, setProducts] = useState([]);
     const [pressed, setPressed] = useState(false);
-    const [img, setImg] = useState('');
-    const animationRef = useRef(null);
+    const [img,setImg]= useState();
+
 
     const fetchProducts = async () => {
         const result = await fetch(
@@ -29,18 +31,19 @@ const Home = ({ navigation }) => {
     };
     useEffect(() => {
         fetchProducts();
+        
     }, []);
-
-    const press = (img) => {
-        console.log('here')
+    const press = () =>{
         setPressed(true);
-        animationRef.current.animate()
-    };
+        setTimeout(()=>{
+            setPressed(false);
+        },650);
+    }
 
     return (
         <SafeView>
-            <AnimatedPicture img={img}  ref={animationRef}/>
             <Cart />
+            {pressed&&<AnimatedPicture img={img} />}
             <NavBar name={'Home'} navigation={navigation} />
             <FlatList
                 contentContainerStyle={{
@@ -64,6 +67,7 @@ const Home = ({ navigation }) => {
                             color={item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray}
                             onPress={press}
                             setImg={setImg}
+
                         />
                     </Pressable>)}
             />

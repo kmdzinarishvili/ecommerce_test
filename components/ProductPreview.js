@@ -23,10 +23,9 @@ const ProductPreview = ({ title, img, seller, price, color, onPress, setImg }) =
                 justifyContent: 'space-between',
                 alignItems: 'center'
             }}>
-                <Text style={[productStyles.text, productStyles.price,]}>${price.toFixed(2)}</Text>
+                <Text style={[productStyles.text, productStyles.price]}>${price.toFixed(2)}</Text>
                 <Pressable
-                    style={{ backgroundColor: 'red' }}
-                    onPress={() => {
+                    onPress={()=>{
                         onPress();
                         setImg(img);
                     }}>

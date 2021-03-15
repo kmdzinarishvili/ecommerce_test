@@ -40,7 +40,7 @@ const Product = ({ route, navigation }) => {
         }
         ).then(json => {
             setItem(json);
-                setIsResfreshing(false);
+            setIsResfreshing(false);
         }
         ).catch((error) => {
             console.log(error);

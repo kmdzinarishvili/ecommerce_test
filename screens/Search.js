@@ -45,7 +45,7 @@ const Search = ({ navigation }) => {
             <FlatList
                 data={searchResults}
                 extraData={searchResults}
-                keyExtractor={item => item.id}
+                keyExtractor={item => `item${item.id}`}
                 renderItem={({ item }) => (
                     <Pressable
                         onPress={() => {
