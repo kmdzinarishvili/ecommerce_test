@@ -10,18 +10,14 @@ const Cart = () => {
                 width: 50,
                 height: 50,
                 borderRadius: 25,
-                borderWidth:10,
+                borderWidth:1,
                 position: 'absolute',
                 bottom: 100,
                 right: 50,
                 shadowColor: '#000',
                 zIndex: 100,
-                // shadowOffset: {
-                //     width: 6,
-                //     height: 6,
-                // },
-                // shadowOpacity: 1,
-                // shadowRadius: 15,
+                borderColor:'black',
+                resizeMode:'cover'
             }}
         />);
 }
