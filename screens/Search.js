@@ -53,6 +53,8 @@ const Search = ({ navigation }) => {
             />
             <Cart />
             <FlatList
+            
+                showsVerticalScrollIndicator={false}
                 data={searchResults}
                 extraData={searchResults}
                 keyExtractor={item => `item${item.id}`}
@@ -62,13 +64,8 @@ const Search = ({ navigation }) => {
                             navigation.navigate('Product', { id: item.id });
                         }}>
                         <ProductPreview
-                            id={item.id}
+                            item={item}
                             keyExtractor={item.id}
-                            title={item.title}
-                            desc={item.description}
-                            img={item.image}
-                            seller={item.seller}
-                            price={item.price}
                             color={item.id % 2 === 0 ?
                                 styles.backgroundOrange : styles.backgroundBlue}
                             onPress={press}

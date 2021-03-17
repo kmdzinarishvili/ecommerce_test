@@ -62,11 +62,6 @@ const Home = ({ navigation }) => {
                         <ProductPreview
                             keyExtractor={item.id}
                             item = {item}
-                            title={item.title}
-                            desc={item.description}
-                            img={item.image}
-                            seller={item.seller}
-                            price={item.price}
                             color={item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray}
                             onPress={press}
                             setImg={setImg}

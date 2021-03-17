@@ -57,6 +57,7 @@ const Product = ({ route, navigation }) => {
             ]}>
                      
                         <FlatList
+                          showsVerticalScrollIndicator={false}
                         contentContainerStyle={{flexGrow: 1, justifyContent: 'center', paddingBottom: 100}}
                         ListHeaderComponentStyle={{alignItems:'center'}}
                         ListHeaderComponent= {

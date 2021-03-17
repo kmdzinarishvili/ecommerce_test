@@ -6,28 +6,14 @@ import AutoHeightImage from 'react-native-auto-height-image';
 
 
 const ProductPreview = ({ 
-    item, title, img, seller, price, color, onPress, setImg }) => {
-    // console.log(item);
-    // const {id, title, description, image, seller, price} = item;
-    // console.log ("id", id);
-    // console.log ('title', title);
-    // console.log('description', description);
-    // console.log('image', image);
-    // console.log('seller', seller);
-    // console.log('price', price);
-    // const {title, img, seller, price, color} = item;
-    //   id={item.id}
-    // title={item.title}
-    // desc={item.description}
-    // img={item.image}
-    // seller={item.seller}
-    // price={item.price}
+    item, color, onPress, setImg }) => {
+    const {title, image, seller, price} = item;
     return (
         <View style={[color, styles.box, { padding: 20 }]}>
             <AutoHeightImage
                 width={Dimensions.get('window').width - 95}
                 source={{
-                    uri: img
+                    uri: image
                 }
                 }
             />
@@ -43,7 +29,7 @@ const ProductPreview = ({
                 <Pressable
                     onPress={()=>{
                         onPress();
-                        setImg(img);
+                        setImg(image);
                     }}>
                     <Text style={productStyles.text}>Add To Cart</Text>
                 </Pressable>
