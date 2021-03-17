@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, SafeAreaView, FlatList, TextInput, Text, TouchableOpacity } from 'react-native';
+import { Pressable, FlatList, TextInput } from 'react-native';
 import ProductPreview from '../components/ProductPreview';
+
 import SafeView from '../components/SafeView';
-import styles from '../styles/styles';
 import NavBar from '../components/NavBar';
+
 import Cart from '../components/Cart';
 import AnimatedPicture from '../components/AnimatedPicture';
+
+import styles from '../styles/styles';
 
 
 const Search = ({ navigation }) => {
@@ -25,6 +28,7 @@ const Search = ({ navigation }) => {
             }
             );
     };
+
     useEffect(() => {
         search();
     }, [searchTerm]);

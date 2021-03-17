@@ -41,7 +41,7 @@ function AnimatedPicture({img}) {
         s.value = withSpring(0.25);
         borderRadius.value= 1000;
         zIndex.value = 999;
-        opacity.value = 1
+        opacity.value = 0.25;
         setTimeout(()=>{
             opacity.value=0;
             offset.value=0;
@@ -61,7 +61,7 @@ function AnimatedPicture({img}) {
         <>
         <Animated.View
             style={[
-                { width: wWidth-95, height:wWidth-95, zIndex: 0, overflow:'hidden', backgroundColor:'red', position:'absolute',top:0, left:0},
+                { width: wWidth-95, height:wWidth-95, zIndex: 0, overflow:'hidden',  position:'absolute',top:0, left:0},
                 animatedStyles,
             ]} >
             <Image

@@ -4,8 +4,6 @@ import SafeView from '../components/SafeView';
 
 
 const Item = ({ item }) => {
-
-
     return (
         <Pressable
             onPress={item.onPress}>

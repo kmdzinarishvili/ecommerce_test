@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, ScrollView, View, Text, StyleSheet, Dimensions } from 'react-native';
+import { FlatList, View, Text, StyleSheet, Dimensions } from 'react-native';
+
 import AutoHeightImage from 'react-native-auto-height-image';
+
+
 import SafeView from '../components/SafeView';
-import styles from '../styles/styles';
 import NavBar from '../components/NavBar';
 import Cart from '../components/Cart';
+
+import customFetch from '../addFunctions/customFetch';
+
+import styles from '../styles/styles';
+
 
 
 const Product = ({ route, navigation }) => {
@@ -14,37 +21,20 @@ const Product = ({ route, navigation }) => {
     const [isRefreshing, setIsRefreshing] = useState(true);
 
     const fetchReviews = async () => {
-        // `https://us-central1-js04-b4877.cloudfunctions.net/api/products/${id}/reviews` 
-        // mxolod pirvels aqvs reviewebi
-        await fetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/1/reviews`)
-            .then(res => {
-                return (res.json());
-            })
-            .then(json => {
+        customFetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/1/reviews`,
+            (json)=>{
                 setReviews(json);
-            }
-            ).catch((error) => {
-                throw error;
-            }
-            );
-
+            })
     };
 
 
     const fetchProduct = async () => {
-        await fetch(
-            `https://us-central1-js04-b4877.cloudfunctions.net/api/products/${id}`
-        ).then(res => {
-            return res.json();
-        }
-        ).then(json => {
+        customFetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/${id}`,
+        (json)=>{
             setItem(json);
             setIsRefreshing(false);
-        }
-        ).catch((error) => {
-            throw error;
-        }
-        );
+        })
+       
 
     };
     useEffect(() => {
@@ -55,13 +45,14 @@ const Product = ({ route, navigation }) => {
     return (
     
         isRefreshing ?
-            <View>
+            <SafeView style={{justifyContent:'center',
+                          alignItems:'center'}}>
                 <Text>Loading</Text>
-            </View> :
+            </SafeView> :
             <SafeView 
             >
                 <Cart />
-                <NavBar name={'Home'} navigation={navigation} />
+                <NavBar name={'Product'} navigation={navigation} />
                     <View style={[item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray, {alignItems:'center'}
             ]}>
                      

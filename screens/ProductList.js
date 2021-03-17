@@ -1,11 +1,16 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { Pressable, SafeAreaView, FlatList, Text } from 'react-native';
-import ProductPreview from '../components/ProductPreview';
+import React, { useState, useEffect } from 'react';
+import { Pressable, FlatList } from 'react-native';
+
 import SafeView from '../components/SafeView';
-import styles from '../styles/styles';
 import NavBar from '../components/NavBar';
+
+import ProductPreview from '../components/ProductPreview';
 import Cart from '../components/Cart';
 import AnimatedPicture from '../components/AnimatedPicture';
+
+import customFetch from '../addFunctions/customFetch';
+import styles from '../styles/styles';
+
 
 
 const ProductList = ({ navigation }) => {
@@ -16,17 +21,12 @@ const ProductList = ({ navigation }) => {
     const [img,setImg]= useState();
 
 
-
     const fetchProducts = async () => {
-        await fetch(
-            `https://us-central1-js04-b4877.cloudfunctions.net/api/products?_page=${page}&_limit=${limit}`
-        ).then(res => res.json())
-            .then(json => {
-                setProducts(prods => [...prods, ...json]);
-            }).catch((error) => {
-                throw error;
-            }
-            );
+
+        customFetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products?_page=${page}&_limit=${limit}`,
+        (json)=>{
+            setProducts(prods => [...prods, ...json]);
+        });
 
     };
     useEffect(() => {
@@ -37,7 +37,7 @@ const ProductList = ({ navigation }) => {
         setPressed(true);
         setTimeout(()=>{
             setPressed(false);
-        },650);
+        },700);
     }
 
 
