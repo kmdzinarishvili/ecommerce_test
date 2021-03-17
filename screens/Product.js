@@ -14,8 +14,9 @@ const Product = ({ route, navigation }) => {
     const [isRefreshing, setIsRefreshing] = useState(true);
 
     const fetchReviews = async () => {
-
-        await fetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/${id}/reviews`)
+        // `https://us-central1-js04-b4877.cloudfunctions.net/api/products/${id}/reviews` 
+        // mxolod pirvels aqvs reviewebi
+        await fetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/1/reviews`)
             .then(res => {
                 return (res.json());
             })
@@ -57,31 +58,37 @@ const Product = ({ route, navigation }) => {
             <View>
                 <Text>Loading</Text>
             </View> :
-            <SafeView style={[item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray,
-            ]}
+            <SafeView 
             >
                 <Cart />
                 <NavBar name={'Home'} navigation={navigation} />
-                    <View style={{alignItems:'center'}}>
-                    <AutoHeightImage width={Dimensions.get('window').width - 80}
-                        source={{
-                            uri: item.image
-                        }}
-                        style={{ margin: 20 }} />
-
-                    <Text>{item.seller}</Text>
-                    <Text style={[productStyles.space, productStyles.title]}>{item.title}</Text>
-                    <Text style={[productStyles.space, productStyles.desc]}>{item.description}</Text>
-                    <Text style={[productStyles.space, productStyles.price]}>${item.price.toFixed(2)}</Text>
-                    <Text>Reviews:</Text>
-                    <FlatList
+                    <View style={[item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray, {alignItems:'center'}
+            ]}>
+                     
+                        <FlatList
+                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center', paddingBottom: 100}}
+                        ListHeaderComponentStyle={{alignItems:'center'}}
+                        ListHeaderComponent= {
+                            <>
+                            <AutoHeightImage width={Dimensions.get('window').width - 80}
+                            source={{
+                                uri: item.image
+                            }}
+                            style={{ margin: 20 }} />
+                            <Text>{item.seller}</Text>
+                            <Text style={[productStyles.space, productStyles.title]}>{item.title}</Text>
+                            <Text style={[productStyles.space, productStyles.desc]}>{item.description}</Text>
+                            <Text style={[productStyles.space, productStyles.price]}>${item.price.toFixed(2)}</Text>
+                            <Text>Reviews:</Text>
+                            </>
+                        }
                         data={reviews}
                         keyExtractor={rev => `item=${rev.id}`}
                         renderItem={({ item }) => (
                             <View style={productStyles.rev}>
                                 <Text>{item.body}</Text>
                             </View>)}
-                    />
+                        />
                     </View>
             </SafeView>
     );
@@ -105,4 +112,7 @@ const productStyles = StyleSheet.create({
         fontSize: 25, color: 'teal'
     }
 });
+
+
+
 export default Product;
