@@ -8,7 +8,9 @@ import NavBar from '../components/NavBar';
 import Cart from '../components/Cart';
 import AnimatedPicture from '../components/AnimatedPicture';
 
+import customFetch from '../addFunctions/customFetch';
 import styles from '../styles/styles';
+
 
 
 const Search = ({ navigation }) => {
@@ -18,15 +20,10 @@ const Search = ({ navigation }) => {
     const [img,setImg]= useState();
 
     const search = async () => {
-        await fetch(
-            `https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`
-        ).then(res => res.json())
-            .then(json => {
-                setSearchResults(json);
-            }).catch((error) => {
-                throw error;
-            }
-            );
+        customFetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products?q=${searchTerm}`,
+                (json)=>{
+                    setSearchResults(json);
+                });  
     };
 
     useEffect(() => {
