@@ -16,14 +16,15 @@ import styles from '../styles/styles';
 const ProductList = ({ navigation }) => {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(1);
-    const limit = 8;
     const [pressed, setPressed] = useState(false);
     const [img,setImg]= useState();
+
+    const LIMIT = 8;
 
 
     const fetchProducts = async () => {
 
-        customFetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products?_page=${page}&_limit=${limit}`,
+        customFetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products?_page=${page}&_limit=${LIMIT}`,
         (json)=>{
             setProducts(prods => [...prods, ...json]);
         });

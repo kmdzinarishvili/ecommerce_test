@@ -18,5 +18,3 @@ const styles = StyleSheet.create({
 });
 
 export default SafeView;
-
-//animacia

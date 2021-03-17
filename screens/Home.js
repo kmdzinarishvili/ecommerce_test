@@ -60,8 +60,8 @@ const Home = ({ navigation }) => {
                             navigation.navigate('Product', { id: item.id });
                         }}>
                         <ProductPreview
-                            id={item.id}
                             keyExtractor={item.id}
+                            item = {item}
                             title={item.title}
                             desc={item.description}
                             img={item.image}

@@ -67,6 +67,8 @@ const Product = ({ route, navigation }) => {
                             }}
                             style={{ margin: 20 }} />
                             <Text>{item.seller}</Text>
+
+                            {/* could turn into flatlist with into */}
                             <Text style={[productStyles.space, productStyles.title]}>{item.title}</Text>
                             <Text style={[productStyles.space, productStyles.desc]}>{item.description}</Text>
                             <Text style={[productStyles.space, productStyles.price]}>${item.price.toFixed(2)}</Text>

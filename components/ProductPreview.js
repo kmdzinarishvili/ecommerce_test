@@ -5,7 +5,23 @@ import AutoHeightImage from 'react-native-auto-height-image';
 
 
 
-const ProductPreview = ({ title, img, seller, price, color, onPress, setImg }) => {
+const ProductPreview = ({ 
+    item, title, img, seller, price, color, onPress, setImg }) => {
+    // console.log(item);
+    // const {id, title, description, image, seller, price} = item;
+    // console.log ("id", id);
+    // console.log ('title', title);
+    // console.log('description', description);
+    // console.log('image', image);
+    // console.log('seller', seller);
+    // console.log('price', price);
+    // const {title, img, seller, price, color} = item;
+    //   id={item.id}
+    // title={item.title}
+    // desc={item.description}
+    // img={item.image}
+    // seller={item.seller}
+    // price={item.price}
     return (
         <View style={[color, styles.box, { padding: 20 }]}>
             <AutoHeightImage
