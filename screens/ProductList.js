@@ -61,18 +61,7 @@ const ProductList = ({ navigation }) => {
                             onPress={press}
                             setImg={setImg}
                         />
-                        {/* <ProductPreview
-                            id={item.id}
-                            title={item.title}
-                            desc={item.description}
-                            img={item.image}
-                            seller={item.seller}
-                            price={item.price}
-                            color={item.id % 2 === 0 ?
-                                styles.backgroundOrange : styles.backgroundBlue}
-                            onPress={press}
-                            setImg={setImg}
-                        /> */}
+                      
                     </Pressable>
                 )}
 
