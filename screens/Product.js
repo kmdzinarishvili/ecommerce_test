@@ -14,7 +14,11 @@ import styles from '../styles/styles';
 
 
 
-const Product = ({ route, navigation }) => {
+const Product = ({ route, navigation, image, seller, title }) => {
+    // add what is already loaded from the previews page 
+    //picture
+    //company
+    //name 
     const id = route.params.id;
     const [item, setItem] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -57,7 +61,7 @@ const Product = ({ route, navigation }) => {
             ]}>
                      
                         <FlatList
-                          showsVerticalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
                         contentContainerStyle={{flexGrow: 1, justifyContent: 'center', paddingBottom: 100}}
                         ListHeaderComponentStyle={{alignItems:'center'}}
                         ListHeaderComponent= {
