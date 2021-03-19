@@ -13,53 +13,70 @@ import Navigation from './screens/Navigation';
 
 const RootStack = createStackNavigator();
 
-export default function App() {
+const MainStack = createStackNavigator();
+
+
+const MainStackScreen = () =>{
+  return (
+  <MainStack.Navigator>
+    <MainStack.Screen
+      name="Navigation"
+      component={Navigation}
+      options={{
+        headerShown: false,
+      }}
+    />
+ 
+
+    <MainStack.Screen
+      name="Search"
+      component={Search}
+      options={{
+        headerShown: false,
+      }}
+    />
+
+    <MainStack.Screen
+      name="Home"
+      component={Home}
+      options={{
+        headerShown: false,
+      }}
+    />
+
+    <MainStack.Screen
+      name="Product List"
+      component={ProductList}
+      options={{
+        headerShown: false,
+      }}
+    />
+  
+  </MainStack.Navigator>
+
+  );
+}
+const App = () => {
   return (
     <NavigationContainer >
-      <RootStack.Navigator>
-        <RootStack.Screen
-          name="Navigation"
-          component={Navigation}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <RootStack.Navigator mode="modal"
+             headerMode="none"   >
+        <RootStack.Screen 
+          name="Main"
+          component={MainStackScreen}
+          />
         <RootStack.Screen
           name="Product"
           component={Product}
-          options={{
-            headerShown: false,
-          }}
+    
         />
-
-        <RootStack.Screen
-          name="Search"
-          component={Search}
-          options={{
-            headerShown: false,
-          }}
-        />
-
-        <RootStack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            headerShown: false,
-          }}
-        />
-
-        <RootStack.Screen
-          name="Product List"
-          component={ProductList}
-          options={{
-            headerShown: false,
-          }}
-        />
-
-
-      </RootStack.Navigator>
-
+    </RootStack.Navigator>
+    
     </NavigationContainer>
   );
 }
+
+
+export default App;
+
 
