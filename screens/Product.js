@@ -18,10 +18,7 @@ import customFetch from '../addFunctions/customFetch';
 //consider adding back button for iphone users
 const Product = ({ 
     route, navigation }) => {
-     const {price, image, seller, title} = route.params;
-        console.log(image);
-
-  
+     const {price, image, seller, title} = route.params;  
     // // add what is already loaded from the previews page 
     // //picture
     // //company
@@ -54,7 +51,7 @@ const Product = ({
     }, []);
 
     return (
-        <View style={styles.centeredView}>
+        <View style={styles.whiteBackdrop}>
         <Modal
           animationType="slide"
           transparent={true}
@@ -66,12 +63,6 @@ const Product = ({
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               
-        
-            <SafeView 
-            >
-            <Cart />
-                <NavBar name={'Product'} navigation={navigation} />
- 
                     <View style={[id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray, {alignItems:'center'}
             ]}>
                      
@@ -81,11 +72,11 @@ const Product = ({
                         ListHeaderComponentStyle={{alignItems:'center'}}
                         ListHeaderComponent= {
                             <>
-                            <AutoHeightImage width={Dimensions.get('window').width - 80}
+                            <AutoHeightImage width={Dimensions.get('window').width - 140}
                             source={{
                                 uri: image
                             }}
-                            style={{ margin: 20 }} />
+                            />
                             <Text>{seller}</Text>
 
                             <Text style={[productStyles.space, productStyles.title]}>{title}</Text>
@@ -107,7 +98,6 @@ const Product = ({
                         />
                     </View>
             
-            </SafeView>
          </View>
           </View>
         </Modal>
@@ -134,38 +124,13 @@ const productStyles = StyleSheet.create({
     }
 });
 
-
-const Prod = () => {
-    return (
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={true}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              
-
-
-
-
-
-
-
-
-            </View>
-          </View>
-        </Modal>
-
-      </View>
-    );
-  };
   
   const styles = StyleSheet.create({
+    whiteBackdrop:{
+      backgroundColor:'white',
+      width:Dimensions.get('window').width,
+      height:Dimensions.get('window').height,
+    },
     centeredView: {
       flex: 1,
       justifyContent: "center",
