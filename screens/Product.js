@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, View, Text, StyleSheet, Dimensions } from 'react-native';
+import { Pressable, Alert, FlatList, Modal, View, Text, StyleSheet, Dimensions } from 'react-native';
 
 import AutoHeightImage from 'react-native-auto-height-image';
 
@@ -10,15 +10,22 @@ import Cart from '../components/Cart';
 
 import customFetch from '../addFunctions/customFetch';
 
-import styles from '../styles/styles';
+// import styles from '../styles/styles';
 
 
 
-const Product = ({ route, navigation, image, seller, title }) => {
-    // add what is already loaded from the previews page 
-    //picture
-    //company
-    //name 
+
+//consider adding back button for iphone users
+const Product = ({ 
+    route, navigation }) => {
+     const {price, image, seller, title} = route.params;
+        console.log(image);
+
+  
+    // // add what is already loaded from the previews page 
+    // //picture
+    // //company
+    // //name 
     const id = route.params.id;
     const [item, setItem] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -47,17 +54,25 @@ const Product = ({ route, navigation, image, seller, title }) => {
     }, []);
 
     return (
-    
-        isRefreshing ?
-            <SafeView style={{justifyContent:'center',
-                          alignItems:'center'}}>
-                <Text>Loading</Text>
-            </SafeView> :
+        <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={true}
+          onRequestClose={() => {
+              navigation.goBack();
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              
+        
             <SafeView 
             >
-                <Cart />
+            <Cart />
                 <NavBar name={'Product'} navigation={navigation} />
-                    <View style={[item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray, {alignItems:'center'}
+ 
+                    <View style={[id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray, {alignItems:'center'}
             ]}>
                      
                         <FlatList
@@ -68,15 +83,18 @@ const Product = ({ route, navigation, image, seller, title }) => {
                             <>
                             <AutoHeightImage width={Dimensions.get('window').width - 80}
                             source={{
-                                uri: item.image
+                                uri: image
                             }}
                             style={{ margin: 20 }} />
-                            <Text>{item.seller}</Text>
+                            <Text>{seller}</Text>
 
-                            {/* could turn into flatlist with into */}
-                            <Text style={[productStyles.space, productStyles.title]}>{item.title}</Text>
-                            <Text style={[productStyles.space, productStyles.desc]}>{item.description}</Text>
-                            <Text style={[productStyles.space, productStyles.price]}>${item.price.toFixed(2)}</Text>
+                            <Text style={[productStyles.space, productStyles.title]}>{title}</Text>
+                            {isRefreshing ?
+            <View style={{justifyContent:'center',
+                          alignItems:'center'}}>
+                <Text>Description Loading</Text>
+            </View> : <Text style={[productStyles.space, productStyles.desc]}>{item.description}</Text>}
+                            <Text style={[productStyles.space, productStyles.price]}>${price.toFixed(2)}</Text>
                             <Text>Reviews:</Text>
                             </>
                         }
@@ -88,8 +106,13 @@ const Product = ({ route, navigation, image, seller, title }) => {
                             </View>)}
                         />
                     </View>
+            
             </SafeView>
-    );
+         </View>
+          </View>
+        </Modal>
+
+      </View>    );
 }
 
 const productStyles = StyleSheet.create({
@@ -112,5 +135,78 @@ const productStyles = StyleSheet.create({
 });
 
 
+const Prod = () => {
+    return (
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={true}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              
 
+
+
+
+
+
+
+
+            </View>
+          </View>
+        </Modal>
+
+      </View>
+    );
+  };
+  
+  const styles = StyleSheet.create({
+    centeredView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 22
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5
+    },
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2
+    },
+    buttonOpen: {
+      backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+      backgroundColor: "#2196F3",
+    },
+    textStyle: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center"
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: "center"
+    }
+  });
+  
 export default Product;
