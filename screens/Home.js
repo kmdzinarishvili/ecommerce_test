@@ -1,7 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FlatList } from 'react-native';
-
 
 import NavBar from '../components/NavBar';
 import Cart from '../components/Cart';
@@ -12,13 +11,13 @@ import AnimatedPicture from '../components/AnimatedPicture';
 import Product from './Product';
 
 import customFetch from '../addFunctions/customFetch';
-
 import styles from '../styles/styles';
 
 
 
-
 const Home = ({ navigation }) => {
+    const ref = useRef();
+    
     const [products, setProducts] = useState([]);
     const [pressed, setPressed] = useState(false);
     const [img,setImg]= useState();
@@ -48,7 +47,7 @@ const Home = ({ navigation }) => {
         <SafeView>
             <Cart />
             {pressed&&<AnimatedPicture img={img} />}
-            {showModal &&<Product setShowModal={setShowModal}/>}
+            {showModal &&<Product ref={ref} setShowModal={setShowModal}/>}
             <NavBar name={'Home'} navigation={navigation} />
             <FlatList
                 showsVerticalScrollIndicator={false} 
@@ -60,6 +59,7 @@ const Home = ({ navigation }) => {
                 renderItem={({ item }) => (
                 
                         <ProductPreview
+                            ref={ref}
                             id={item.id}
                             title={item.title}
                             image={item.image}

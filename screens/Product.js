@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import { Pressable, Alert, FlatList, Modal, View, Text, StyleSheet, Dimensions } from 'react-native';
 
 import AutoHeightImage from 'react-native-auto-height-image';
@@ -132,7 +132,12 @@ const productStyles = StyleSheet.create({
 });
 
 
-const Prod = ({setShowModal}) => {
+const Prod = forwardRef(({setShowModal}, ref) => {
+    useEffect(()=>{
+      console.log("ref",ref);
+
+        //  image, seller, price, id,
+    });
     return (
       <View style={styles.centeredView}>
         <Modal
@@ -146,13 +151,18 @@ const Prod = ({setShowModal}) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
             <Text>Hello Tis I pizza pie </Text>
+            <AutoHeightImage width={Dimensions.get('window').width - 80}
+                source={{
+                      uri: ref.current.image
+                      }}
+             style={{ margin: 20 }} />
             </View>
           </View>
         </Modal>
 
       </View>
     );
-  };
+  });
   
   const styles = StyleSheet.create({
     centeredView: {
