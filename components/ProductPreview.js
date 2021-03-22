@@ -5,10 +5,14 @@ import AutoHeightImage from 'react-native-auto-height-image';
 
 
 
-const ProductPreview = ({ 
+const ProductPreview = ({ navigation,
     item, color, onPress, setImg }) => {
     const {title, image, seller, price} = item;
     return (
+        <Pressable
+        onPress={() => {
+            navigation.navigate('Product', { id: item.id, title:title, image:image, seller:seller, price:price });
+        }}>
         <View style={[color, styles.box, { padding: 20 }]}>
             <AutoHeightImage
                 width={Dimensions.get('window').width - 95}
@@ -35,6 +39,7 @@ const ProductPreview = ({
                 </Pressable>
             </View>
         </View >
+        </Pressable>
     );
 }
 

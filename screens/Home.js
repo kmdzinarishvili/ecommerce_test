@@ -55,18 +55,16 @@ const Home = ({ navigation }) => {
                 data={products}
                 keyExtractor={item => `item-${item.id}`}
                 renderItem={({ item }) => (
-                    <Pressable
-                        onPress={() => {
-                            navigation.navigate('Product', { id: item.id });
-                        }}>
+                  
                         <ProductPreview
                             keyExtractor={item.id}
                             item = {item}
                             color={item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray}
                             onPress={press}
                             setImg={setImg}
+                            navigation={navigation}
                         />
-                    </Pressable>)}
+                   )}
             />
         </SafeView>
     );
