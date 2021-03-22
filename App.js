@@ -25,21 +25,12 @@ export default function App() {
           }}
         />
         <RootStack.Screen
-          name="Product"
-          component={Product}
-          options={{
-            headerShown: false,
-          }}
-        />
-
-        <RootStack.Screen
           name="Search"
           component={Search}
           options={{
             headerShown: false,
           }}
         />
-
         <RootStack.Screen
           name="Home"
           component={Home}

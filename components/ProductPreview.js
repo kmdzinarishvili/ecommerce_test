@@ -5,13 +5,11 @@ import AutoHeightImage from 'react-native-auto-height-image';
 
 
 
-const ProductPreview = ({  title, image, seller, price, id, color, onPress, setImg, navigation }) => {
+const ProductPreview = ({  title, image, seller, price, id, color, onPress, setImg, setShowModal }) => {
     return (
         <Pressable 
         onPress={() => {
-            navigation.navigate('Product', {price:price, 
-                id:id, image: image, seller:seller, title:title,
-             });
+            setShowModal(true);
 
         }}
         >

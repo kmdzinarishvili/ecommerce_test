@@ -9,6 +9,7 @@ import SafeView from '../components/SafeView';
 
 import ProductPreview from '../components/ProductPreview';
 import AnimatedPicture from '../components/AnimatedPicture';
+import Product from './Product';
 
 import customFetch from '../addFunctions/customFetch';
 
@@ -21,6 +22,7 @@ const Home = ({ navigation }) => {
     const [products, setProducts] = useState([]);
     const [pressed, setPressed] = useState(false);
     const [img,setImg]= useState();
+    const [showModal, setShowModal]= useState();
 
 
     const fetchProducts = () => {
@@ -46,6 +48,7 @@ const Home = ({ navigation }) => {
         <SafeView>
             <Cart />
             {pressed&&<AnimatedPicture img={img} />}
+            {showModal &&<Product setShowModal={setShowModal}/>}
             <NavBar name={'Home'} navigation={navigation} />
             <FlatList
                 showsVerticalScrollIndicator={false} 
@@ -68,6 +71,7 @@ const Home = ({ navigation }) => {
                             color={item.id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray}
                             onPress={press}
                             setImg={setImg}
+                            setShowModal={setShowModal}
                         />)}
             />
         </SafeView>

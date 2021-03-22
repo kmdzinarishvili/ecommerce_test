@@ -16,104 +16,101 @@ import customFetch from '../addFunctions/customFetch';
 
 
 //consider adding back button for iphone users
-const Product = ({ 
-    route, navigation }) => {
-     const {price, image, seller, title} = route.params;
-        console.log(image);
+// const Product = ({ 
+//     route, navigation }) => {
+//      const {price, image, seller, title} = route.params;  
+//     // // add what is already loaded from the previews page 
+//     // //picture
+//     // //company
+//     // //name 
+//     const id = route.params.id;
+//     const [item, setItem] = useState({});
+//     const [reviews, setReviews] = useState([]);
+//     const [isRefreshing, setIsRefreshing] = useState(true);
 
-  
-    // // add what is already loaded from the previews page 
-    // //picture
-    // //company
-    // //name 
-    const id = route.params.id;
-    const [item, setItem] = useState({});
-    const [reviews, setReviews] = useState([]);
-    const [isRefreshing, setIsRefreshing] = useState(true);
-
-    const fetchReviews = async () => {
-        customFetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/1/reviews`,
-            (json)=>{
-                setReviews(json);
-            })
-    };
+//     const fetchReviews = async () => {
+//         customFetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/1/reviews`,
+//             (json)=>{
+//                 setReviews(json);
+//             })
+//     };
 
 
-    const fetchProduct = async () => {
-        customFetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/${id}`,
-        (json)=>{
-            setItem(json);
-            setIsRefreshing(false);
-        })
+//     const fetchProduct = async () => {
+//         customFetch(`https://us-central1-js04-b4877.cloudfunctions.net/api/products/${id}`,
+//         (json)=>{
+//             setItem(json);
+//             setIsRefreshing(false);
+//         })
        
 
-    };
-    useEffect(() => {
-        fetchProduct();
-        fetchReviews();
-    }, []);
+//     };
+//     useEffect(() => {
+//         fetchProduct();
+//         fetchReviews();
+//     }, []);
 
-    return (
-        <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={true}
-          onRequestClose={() => {
-              navigation.goBack();
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+//     return (
+//         <View style={styles.centeredView}>
+//         <Modal
+//           animationType="slide"
+//           transparent={true}
+//           visible={true}
+//           onRequestClose={() => {
+//               navigation.goBack();
+//           }}
+//         >
+//           <View style={styles.centeredView}>
+//             <View style={styles.modalView}>
               
         
-            <SafeView 
-            >
-            <Cart />
-                <NavBar name={'Product'} navigation={navigation} />
+//             <SafeView 
+//             >
+//             <Cart />
+//                 <NavBar name={'Product'} navigation={navigation} />
  
-                    <View style={[id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray, {alignItems:'center'}
-            ]}>
+//                     <View style={[id % 2 === 0 ? styles.backgroundOrange : styles.backgroundGray, {alignItems:'center'}
+//             ]}>
                      
-                        <FlatList
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{flexGrow: 1, justifyContent: 'center', paddingBottom: 100}}
-                        ListHeaderComponentStyle={{alignItems:'center'}}
-                        ListHeaderComponent= {
-                            <>
-                            <AutoHeightImage width={Dimensions.get('window').width - 80}
-                            source={{
-                                uri: image
-                            }}
-                            style={{ margin: 20 }} />
-                            <Text>{seller}</Text>
+//                         <FlatList
+//                         showsVerticalScrollIndicator={false}
+//                         contentContainerStyle={{flexGrow: 1, justifyContent: 'center', paddingBottom: 100}}
+//                         ListHeaderComponentStyle={{alignItems:'center'}}
+//                         ListHeaderComponent= {
+//                             <>
+//                             <AutoHeightImage width={Dimensions.get('window').width - 80}
+//                             source={{
+//                                 uri: image
+//                             }}
+//                             style={{ margin: 20 }} />
+//                             <Text>{seller}</Text>
 
-                            <Text style={[productStyles.space, productStyles.title]}>{title}</Text>
-                            {isRefreshing ?
-            <View style={{justifyContent:'center',
-                          alignItems:'center'}}>
-                <Text>Description Loading</Text>
-            </View> : <Text style={[productStyles.space, productStyles.desc]}>{item.description}</Text>}
-                            <Text style={[productStyles.space, productStyles.price]}>${price.toFixed(2)}</Text>
-                            <Text>Reviews:</Text>
-                            </>
-                        }
-                        data={reviews}
-                        keyExtractor={rev => `item=${rev.id}`}
-                        renderItem={({ item }) => (
-                            <View style={productStyles.rev}>
-                                <Text>{item.body}</Text>
-                            </View>)}
-                        />
-                    </View>
+//                             <Text style={[productStyles.space, productStyles.title]}>{title}</Text>
+//                             {isRefreshing ?
+//             <View style={{justifyContent:'center',
+//                           alignItems:'center'}}>
+//                 <Text>Description Loading</Text>
+//             </View> : <Text style={[productStyles.space, productStyles.desc]}>{item.description}</Text>}
+//                             <Text style={[productStyles.space, productStyles.price]}>${price.toFixed(2)}</Text>
+//                             <Text>Reviews:</Text>
+//                             </>
+//                         }
+//                         data={reviews}
+//                         keyExtractor={rev => `item=${rev.id}`}
+//                         renderItem={({ item }) => (
+//                             <View style={productStyles.rev}>
+//                                 <Text>{item.body}</Text>
+//                             </View>)}
+//                         />
+//                     </View>
             
-            </SafeView>
-         </View>
-          </View>
-        </Modal>
+//             </SafeView>
+//          </View>
+//           </View>
+//         </Modal>
 
-      </View>    );
-}
+//       </View>    );
+// }
 
 const productStyles = StyleSheet.create({
     space: {
@@ -135,7 +132,7 @@ const productStyles = StyleSheet.create({
 });
 
 
-const Prod = () => {
+const Prod = ({setShowModal}) => {
     return (
       <View style={styles.centeredView}>
         <Modal
@@ -143,20 +140,12 @@ const Prod = () => {
           transparent={true}
           visible={true}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
+            setShowModal(false);
           }}
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              
-
-
-
-
-
-
-
-
+            <Text>Hello Tis I pizza pie </Text>
             </View>
           </View>
         </Modal>
@@ -209,4 +198,4 @@ const Prod = () => {
     }
   });
   
-export default Product;
+export default Prod;
