@@ -6,6 +6,9 @@ import AutoHeightImage from 'react-native-auto-height-image';
 
 
 const ProductPreview = ({  title, image, seller, price, item, id, color, onPress, setImg, navigation }) => {
+    console.log(price.toFixed(2));
+  
+    
     return (
         <Pressable 
         onPress={() => {
@@ -29,7 +32,7 @@ const ProductPreview = ({  title, image, seller, price, item, id, color, onPress
                     justifyContent: 'space-between',
                     alignItems: 'center'
                 }}>
-                    <Text style={[productStyles.text, productStyles.price]}>${price.toFixed(2)}</Text>
+                    <Text style={[productStyles.text, productStyles.price]}>{price}</Text>
                     <Pressable
                         onPress={()=>{
                             onPress();
